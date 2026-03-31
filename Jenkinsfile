@@ -31,18 +31,16 @@ pipeline {
                 }
             }
         }
-
         stage('Deploy Container') {
             steps {
                 script {
-                    sh 'docker stop my-app-container || true'
-                    sh 'docker rm my-app-container || true'
-                    sh "docker run -d --name my-app-container -p 3000:3000 ${IMAGE_NAME}:latest"
+                    bat 'docker stop my-app-container || exit 0'
+                    bat 'docker rm my-app-container || exit 0'
+                    bat "docker run -d --name my-app-container -p 3000:3000 ${IMAGE_NAME}:latest"
                 }
             }
         }
     }
-
     post {
         success { echo '✅ Deployed successfully!' }
         failure { echo '❌ Build failed. Check logs.' }
