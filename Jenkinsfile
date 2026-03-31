@@ -36,7 +36,7 @@ pipeline {
                 script {
                     bat 'docker stop my-app-container || exit 0'
                     bat 'docker rm my-app-container || exit 0'
-                    bat "docker run -d --name my-app-container -p 3000:3000 ${IMAGE_NAME}:latest"
+                    bat "docker run -d --name my-app-container -p 8085:3000 ${IMAGE_NAME}:latest"
                 }
             }
         }
