@@ -34,13 +34,11 @@ pipeline {
         stage('Deploy Container') {
             steps {
                 script {
-                    bat 'docker stop my-app-container || exit 0'
-                    bat 'docker rm my-app-container || exit 0'
+                    bat 'docker rm -f my-app-container 2>nul & exit 0'
                     bat "docker run -d --name my-app-container -p 8085:3000 ${IMAGE_NAME}:latest"
                 }
             }
         }
-    }
     post {
         success { echo '✅ Deployed successfully!' }
         failure { echo '❌ Build failed. Check logs.' }
